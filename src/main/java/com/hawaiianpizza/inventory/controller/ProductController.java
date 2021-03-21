@@ -35,42 +35,42 @@ public class ProductController {
 
     }
     // 제품명 조회
-    @GetMapping(value = "/products")
-    public ResponseEntity<?> productsName(@RequestParam String name) {
-        System.out.println("productsName Controller");
-        try {
-            List<Product> list = productService.searchName(name);
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
+//    @GetMapping(value = "/products")
+//    public ResponseEntity<?> productsName(@RequestParam String name) {
+//        System.out.println("productsName Controller");
+//        try {
+//            List<Product> list = productService.searchName(name);
+//            return new ResponseEntity<>("login Success", HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//    }
     // 카테고리 조회
-    @GetMapping(value = "/products")
-    public ResponseEntity<?> productsCategory(@RequestParam String category) {
-        System.out.println("productsCategory Controller");
-        try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
+//    @GetMapping(value = "/products")
+//    public ResponseEntity<?> productsCategory(@RequestParam String category) {
+//        System.out.println("productsCategory Controller");
+//        try {
+//            System.out.println("info");
+//            return new ResponseEntity<>("login Success", HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//    }
 
     // S/N 조회
-    @GetMapping(value = "/products")
-    public ResponseEntity<?> productsSN(@RequestParam int sn) {
-        System.out.println("productsSN Controller");
-        try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
+//    @GetMapping(value = "/products")
+//    public ResponseEntity<?> productsSN(@RequestParam int sn) {
+//        System.out.println("productsSN Controller");
+//        try {
+//            System.out.println("info");
+//            return new ResponseEntity<>("login Success", HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//    }
     @PostMapping(value = "/products")
     public ResponseEntity<?> productsUpdate(@RequestBody Product product) {
         System.out.println("productsUpdate Controller");

@@ -20,7 +20,7 @@ public class User {
     private String id;
     private String email;
     private int auth;
-    @Column(name = "token")
+//    @Column(name = "token")
     private String access_token;
     private String group;
     private String token;
