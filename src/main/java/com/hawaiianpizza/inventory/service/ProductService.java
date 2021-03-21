@@ -19,6 +19,6 @@ public class ProductService {
     }
 
     public List<Product> searchName(String name) {
-        return productDao.findByLikeProductName("?"+name+"?");
+        return productDao.findByProductNameLike("?"+name+"?");
     }
 }
