@@ -17,7 +17,19 @@ public class AdminController {
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
+    @GetMapping(value = "/id-check")
+    public ResponseEntity<?> idCheck(@RequestParam String id) {
+        System.out.println("admin create controller");
+        try {
+            System.out.println(id);
+            Admin ad = adminService.idCheck(id);
+            return new ResponseEntity<>(ad, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>("check fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
+    }
     @PostMapping(value = "/admin")
     public ResponseEntity<?> adminCreate(@RequestBody Admin admin) {
         System.out.println("admin create controller");
@@ -29,34 +41,51 @@ public class AdminController {
             System.out.println(e);
             return new ResponseEntity<>("join fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @PostMapping(value = "/login")
     public ResponseEntity<?> adminLogin(@RequestBody AdminLogin admin) {
         System.out.println("admin login controller");
         try {
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            if(adminService.login(admin)!=null)
+            {
+                return new ResponseEntity<>("login Success", HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>("login fail", HttpStatus.OK);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PutMapping(value = "/admin")
     public ResponseEntity<?> adminUpdate(@RequestBody Admin admin) {
         System.out.println("admin update controller");
         try {
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            System.out.println(admin);
+            Admin ad = adminService.join(admin);
+            return new ResponseEntity<>(ad, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println(e);
+            return new ResponseEntity<>("update fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @DeleteMapping(value = "/admin")
     public ResponseEntity<?> adminDelete(@RequestBody String id) {
-        System.out.println("admin update controller");
+        System.out.println("admin delete controller");
         try {
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            Admin ad = adminService.delete(id);
+
+            if(ad != null){
+                return new ResponseEntity<>(ad, HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>("del fail", HttpStatus.OK);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
