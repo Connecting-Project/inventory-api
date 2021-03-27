@@ -99,9 +99,9 @@ public class AdminController {
     }
     @GetMapping(value = "/user")
     public ResponseEntity<?> findUnallowedUser(){
-        System.out.println("admin findUnallowedUser controller");
+        System.out.println("admin find not Allowed User controller");
         try {
-            List<User> ls = adminService.unallowedUserList();
+            List<User> ls = adminService.notallowedUserList();
 
             if(ls != null){
                 return new ResponseEntity<>(ls, HttpStatus.OK);

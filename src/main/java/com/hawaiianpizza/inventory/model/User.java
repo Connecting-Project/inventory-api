@@ -16,14 +16,13 @@ import javax.persistence.Id;
 @Entity(name = "user")
 public class User {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String email;
     private String name;
-    @Column(name = "token")
-    private String access_token;
+    private String utoken;
 
-    private int auth;
-    private String group;
+    private int uauth;
+    @Column(name = "product_group")
+    private String productGroup;
     private String tel;
 }

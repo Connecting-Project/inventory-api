@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface LoginDao extends JpaRepository<User, String> {
      Optional<User> findById(String id);
 
-    List<User> findByAuth(int i);
+    List<User> findByUauth(int i);
 }

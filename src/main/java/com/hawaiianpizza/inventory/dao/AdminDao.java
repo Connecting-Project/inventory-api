@@ -14,5 +14,4 @@ public interface AdminDao extends JpaRepository<Admin, String> {
 
      Optional<Admin> findByIdAndPw(String id, String pwd);
 
-    List<Admin> findByAuth(int i);
 }
