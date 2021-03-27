@@ -1,7 +1,6 @@
 package com.hawaiianpizza.inventory.service;
 
 
-import com.hawaiianpizza.inventory.dao.LoginDao;
 import com.hawaiianpizza.inventory.dao.ProductDao;
 import com.hawaiianpizza.inventory.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
