@@ -2,11 +2,14 @@ package com.hawaiianpizza.inventory.controller;
 
 import com.hawaiianpizza.inventory.model.Admin;
 import com.hawaiianpizza.inventory.model.AdminLogin;
+import com.hawaiianpizza.inventory.model.User;
 import com.hawaiianpizza.inventory.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -94,5 +97,22 @@ public class AdminController {
             return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping(value = "/user")
+    public ResponseEntity<?> findUnallowedUser(){
+        System.out.println("admin findUnallowedUser controller");
+        try {
+            List<User> ls = adminService.unallowedUserList();
 
+            if(ls != null){
+                return new ResponseEntity<>(ls, HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>("no user", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }

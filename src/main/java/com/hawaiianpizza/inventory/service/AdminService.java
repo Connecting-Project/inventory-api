@@ -2,8 +2,10 @@ package com.hawaiianpizza.inventory.service;
 
 
 import com.hawaiianpizza.inventory.dao.AdminDao;
+import com.hawaiianpizza.inventory.dao.LoginDao;
 import com.hawaiianpizza.inventory.model.Admin;
 import com.hawaiianpizza.inventory.model.AdminLogin;
+import com.hawaiianpizza.inventory.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.List;
 public class AdminService {
     @Autowired
     private AdminDao adminDao;
+    @Autowired
+    private LoginDao loginDao;
 
     public List<Admin> test () {
         return adminDao.findAll();
@@ -31,9 +35,13 @@ public class AdminService {
     }
 
     public Admin idCheck(String id) {
-        return adminDao.findById(id).get();
-    }
+        try {
+            return adminDao.findById(id).get();
+        } catch (Exception e) {
+            return null;
 
+        }
+    }
     public Admin login(AdminLogin admin) {
         try{
             return  adminDao.findByIdAndPw(admin.getId(),admin.getPwd()).get();
@@ -56,5 +64,9 @@ public class AdminService {
             return null;
         }
 
+    }
+
+    public List<User> unallowedUserList() {
+        return loginDao.findByAuth(0);
     }
 }
