@@ -13,17 +13,9 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity(name = "user")
-public class User {
-    @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class GoogleUser {
     private String id;
     private String email;
     private String name;
-    @Column(name = "token")
     private String access_token;
-
-    private int auth;
-    private String group;
-    private String tel;
 }

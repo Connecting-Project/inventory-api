@@ -2,6 +2,7 @@ package com.hawaiianpizza.inventory.service;
 
 
 import com.hawaiianpizza.inventory.dao.LoginDao;
+import com.hawaiianpizza.inventory.model.GoogleUser;
 import com.hawaiianpizza.inventory.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -21,7 +22,7 @@ public class LoginService {
     private JavaMailSender mailSender;
     private static final String FROM_ADDRESS = "ssafystudy@gmail.com";
 
-    public User googleLogin(User guser){
+    public User googleLogin(GoogleUser guser){
 
         //todo :  user 가입 여부 확인, 없을시 가입
 
@@ -32,11 +33,7 @@ public class LoginService {
             }
             else
             {
-                System.out.println("test");
-                loginDao.save(new User());
-                System.out.println("test success");
                 User suser = new User();
-                System.out.println("save");
                 suser.setId(guser.getId());
                 suser.setEmail(guser.getEmail());
                 suser.setName(guser.getName());

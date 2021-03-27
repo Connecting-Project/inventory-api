@@ -52,9 +52,10 @@ public class AdminController {
     public ResponseEntity<?> adminLogin(@RequestBody AdminLogin admin) {
         System.out.println("admin login controller");
         try {
-            if(adminService.login(admin)!=null)
+            Admin ad = adminService.login(admin);
+            if(ad!=null)
             {
-                return new ResponseEntity<>("login Success", HttpStatus.OK);
+                return new ResponseEntity<>(ad, HttpStatus.OK);
             }
             else{
                 return new ResponseEntity<>("login fail", HttpStatus.OK);

@@ -1,5 +1,6 @@
 package com.hawaiianpizza.inventory.controller;
 
+import com.hawaiianpizza.inventory.model.GoogleUser;
 import com.hawaiianpizza.inventory.model.User;
 import com.hawaiianpizza.inventory.service.AdminService;
 import com.hawaiianpizza.inventory.service.LoginService;
@@ -20,44 +21,19 @@ public class LoginController {
 
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> google(@RequestBody User user) {
+    public ResponseEntity<?> google(@RequestBody GoogleUser guser) {
         System.out.println("google Login Controller");
         try {
-            System.out.println(user);
+            System.out.println(guser);
             System.out.println("info");
-            loginService.googleLogin(user);
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            return new ResponseEntity<>( loginService.googleLogin(guser), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-    }
-
-    @GetMapping(value = "/accounts")
-    public ResponseEntity<?> accounts(@RequestParam String id, String email) {
-        System.out.println("accounts Controller");
-        try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
     }
     @PutMapping(value = "/accounts")
     public ResponseEntity<?> accountsUpdate(@RequestParam String email) {
         System.out.println("accountsUpdate Controller");
-        try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-    @DeleteMapping(value = "/accounts")
-    public ResponseEntity<?> accountsDelete(@RequestParam String id) {
-        System.out.println("accountsDelete Controller");
         try {
             System.out.println("info");
             return new ResponseEntity<>("login Success", HttpStatus.OK);
