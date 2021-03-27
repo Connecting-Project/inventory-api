@@ -37,10 +37,13 @@ public class LoginService {
                 suser.setId(guser.getId());
                 suser.setEmail(guser.getEmail());
                 suser.setName(guser.getName());
-                suser.setAccess_token(guser.getAccess_token());
+                suser.setUtoken(guser.getAccess_token());
+                suser.setTel("없음");
+                suser.setProductGroup("없음");
                 System.out.println(suser);
-                loginDao.save(suser);
+                User ret = loginDao.save(suser);
                 System.out.println("save");
+                return ret;
             }
             return user.get();
         }
@@ -51,7 +54,9 @@ public class LoginService {
             suser.setId(guser.getId());
             suser.setEmail(guser.getEmail());
             suser.setName(guser.getName());
-            suser.setAccess_token(guser.getAccess_token());
+            suser.setUtoken(guser.getAccess_token());
+            suser.setTel("없음");
+            suser.setProductGroup("없음");
             loginDao.save(suser);
             return suser;
         }

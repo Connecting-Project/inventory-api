@@ -66,7 +66,7 @@ public class AdminService {
 
     }
 
-    public List<User> unallowedUserList() {
-        return loginDao.findByAuth(0);
+    public List<User> notallowedUserList() {
+        return loginDao.findByUauth(0);
     }
 }
