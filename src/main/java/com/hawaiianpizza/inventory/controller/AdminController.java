@@ -23,7 +23,12 @@ public class AdminController {
         try {
             System.out.println(id);
             Admin ad = adminService.idCheck(id);
-            return new ResponseEntity<>(ad, HttpStatus.OK);
+            if(ad!=null){
+                return new ResponseEntity<>("fail", HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>("sucess", HttpStatus.OK);
+            }
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<>("check fail", HttpStatus.INTERNAL_SERVER_ERROR);
