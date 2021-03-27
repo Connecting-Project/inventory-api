@@ -2,7 +2,6 @@ package com.hawaiianpizza.inventory.service;
 
 
 import com.hawaiianpizza.inventory.dao.LoginDao;
-import com.hawaiianpizza.inventory.model.Admin;
 import com.hawaiianpizza.inventory.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -41,7 +40,7 @@ public class LoginService {
                 suser.setId(guser.getId());
                 suser.setEmail(guser.getEmail());
                 suser.setName(guser.getName());
-                suser.setToken(guser.getAccess_token());
+                suser.setAccess_token(guser.getAccess_token());
                 System.out.println(suser);
                 loginDao.save(suser);
                 System.out.println("save");
@@ -55,7 +54,7 @@ public class LoginService {
             suser.setId(guser.getId());
             suser.setEmail(guser.getEmail());
             suser.setName(guser.getName());
-            suser.setToken(guser.getAccess_token());
+            suser.setAccess_token(guser.getAccess_token());
             loginDao.save(suser);
             return suser;
         }

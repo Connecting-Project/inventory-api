@@ -23,7 +23,6 @@ public class User {
     @Column(name = "token")
     private String access_token;
     private String group;
-    private String token;
     private String name;
     private String tel;
 }

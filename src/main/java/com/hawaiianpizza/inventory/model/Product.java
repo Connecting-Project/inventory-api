@@ -26,5 +26,4 @@ public class Product {
     private int price;
     private int quantity;
     private int sn;
-    private String user;
 }

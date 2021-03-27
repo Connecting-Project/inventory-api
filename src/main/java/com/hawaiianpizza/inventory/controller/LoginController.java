@@ -1,7 +1,7 @@
 package com.hawaiianpizza.inventory.controller;
 
-import com.hawaiianpizza.inventory.model.Admin;
 import com.hawaiianpizza.inventory.model.User;
+import com.hawaiianpizza.inventory.service.AdminService;
 import com.hawaiianpizza.inventory.service.LoginService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/v1/inventory/")
+@RequestMapping("api/v1/inventory/accounts")
 public class LoginController {
 
     private final LoginService loginService;
@@ -32,6 +32,7 @@ public class LoginController {
         }
 
     }
+
     @GetMapping(value = "/accounts")
     public ResponseEntity<?> accounts(@RequestParam String id, String email) {
         System.out.println("accounts Controller");
