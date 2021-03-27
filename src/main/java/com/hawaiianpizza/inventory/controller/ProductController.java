@@ -32,7 +32,7 @@ public class ProductController {
 
     }
     // 제품명 조회
-    @GetMapping(value = "/name")
+  @GetMapping(value = "/name")
     public ResponseEntity<?> productsName(@RequestParam String name) {
         System.out.println("productsName Controller");
         try {
@@ -68,29 +68,6 @@ public class ProductController {
         }
 
     }
-    @PostMapping(value = "/")
-    public ResponseEntity<?> productsUpdate(@RequestBody Product product) {
-        System.out.println("productsUpdate Controller");
-        try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-    @DeleteMapping(value = "/")
-    public ResponseEntity<?> productsDelete(@RequestParam String id) {
-        System.out.println("productsDelete Controller");
-        try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
 
 
 }
