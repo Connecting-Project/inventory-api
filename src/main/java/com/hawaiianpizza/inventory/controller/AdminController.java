@@ -2,6 +2,7 @@ package com.hawaiianpizza.inventory.controller;
 
 import com.hawaiianpizza.inventory.model.Admin;
 import com.hawaiianpizza.inventory.model.AdminLogin;
+import com.hawaiianpizza.inventory.model.Product;
 import com.hawaiianpizza.inventory.model.User;
 import com.hawaiianpizza.inventory.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -115,8 +117,11 @@ public class AdminController {
         System.out.println("User list controller");
         try {
             List<User> ls = adminService.userList();
+            HashMap<String,Object> ret = new HashMap<>();
+            ret.put("userlist",ls);
+            ret.put("usercount",ls.size());
             if(ls != null){
-                return new ResponseEntity<>(ls, HttpStatus.OK);
+                return new ResponseEntity<>(ret, HttpStatus.OK);
             }
             else
             {
@@ -131,8 +136,28 @@ public class AdminController {
         System.out.println("User name search controller");
         try {
             List<User> ls = adminService.userNameSearch("%"+name+"%");
+            HashMap<String,Object> ret = new HashMap<>();
+            ret.put("userlist",ls);
+            ret.put("usercount",ls.size());
             if(ls != null){
-                return new ResponseEntity<>(ls, HttpStatus.OK);
+                return new ResponseEntity<>(ret, HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>("no user", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @GetMapping(value = "/product-user-change")
+    public ResponseEntity<?> productUserChange(@RequestBody Product product, @RequestParam String name){
+        System.out.println("product user change controller");
+        try {
+            Product pro = adminService.productUserChange(product,name);
+            if(pro != null){
+                return new ResponseEntity<>(pro, HttpStatus.OK);
             }
             else
             {
