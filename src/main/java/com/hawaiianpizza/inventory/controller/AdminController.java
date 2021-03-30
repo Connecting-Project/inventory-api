@@ -98,11 +98,10 @@ public class AdminController {
         }
     }
     @GetMapping(value = "/user")
-    public ResponseEntity<?> findUnallowedUser(){
-        System.out.println("admin find not Allowed User controller");
+    public ResponseEntity<?> userList(){
+        System.out.println("User list controller");
         try {
-            List<User> ls = adminService.notallowedUserList();
-
+            List<User> ls = adminService.userList();
             if(ls != null){
                 return new ResponseEntity<>(ls, HttpStatus.OK);
             }
@@ -114,5 +113,38 @@ public class AdminController {
             return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+    @GetMapping(value = "/user-search")
+    public ResponseEntity<?> userSearch(@RequestParam String name){
+        System.out.println("User name search controller");
+        try {
+            List<User> ls = adminService.userNameSearch("%"+name+"%");
+            if(ls != null){
+                return new ResponseEntity<>(ls, HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>("no user", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @GetMapping(value = "/change-auth")
+    public ResponseEntity<?> changeAuth(@RequestBody User user,@RequestParam int level){
+        System.out.println("change Auth");
+        try {
+            User u = adminService.changeAuth(user,level);
+            if(u != null){
+                return new ResponseEntity<>(u, HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>("no user", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
