@@ -48,23 +48,23 @@ public class ProductController {
     public ResponseEntity<?> productsCategory(@RequestParam String category) {
         System.out.println("productsCategory Controller");
         try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            List<Product> list = productService.searchCategory(category);
+            return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("category fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
     // S/N 조회
     @GetMapping(value = "/sn")
-    public ResponseEntity<?> productsSN(@RequestParam int sn) {
+    public ResponseEntity<?> productsSN(@RequestParam String sn) {
         System.out.println("productsSN Controller");
         try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            Product pro = productService.SearchBySn(sn);
+            return new ResponseEntity<>(pro, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -72,21 +72,22 @@ public class ProductController {
     public ResponseEntity<?> productsUpdate(@RequestBody Product product) {
         System.out.println("productsUpdate Controller");
         try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            System.out.println("update product");
+            Product pro = productService.Update(product);
+            return new ResponseEntity<>(pro, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("save fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
     @DeleteMapping(value = "/")
-    public ResponseEntity<?> productsDelete(@RequestParam String id) {
+    public ResponseEntity<?> productsDelete(@RequestParam String sn) {
         System.out.println("productsDelete Controller");
         try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            String ret = productService.delete(sn);
+            return new ResponseEntity<>(ret, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

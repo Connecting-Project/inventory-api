@@ -97,6 +97,19 @@ public class AdminController {
             return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(value = "/admin-check")
+    public ResponseEntity<?> adminCheck(){
+        System.out.println("admin check controller");
+        try {
+            boolean b = adminService.adminCheck();
+            return new ResponseEntity<>(b, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping(value = "/user")
     public ResponseEntity<?> userList(){
         System.out.println("User list controller");
@@ -112,7 +125,6 @@ public class AdminController {
         } catch (Exception e) {
             return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
     @GetMapping(value = "/user-search")
     public ResponseEntity<?> userSearch(@RequestParam String name){

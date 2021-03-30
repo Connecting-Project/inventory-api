@@ -79,4 +79,10 @@ public class AdminService {
         return loginDao.save(user);
 
     }
+
+    public boolean adminCheck() {
+        if(loginDao.count()>0)
+            return true;
+        return false;
+    }
 }

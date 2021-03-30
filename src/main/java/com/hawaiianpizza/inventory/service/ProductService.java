@@ -18,6 +18,30 @@ public class ProductService {
     }
 
     public List<Product> searchName(String name) {
-        return productDao.findByProductNameLike("?"+name+"?");
+        return productDao.findByProductNameLike("%"+name+"%");
+    }
+
+    public List<Product> searchCategory(String category) {
+        return productDao.findByCategory(category);
+    }
+
+    public Product SearchBySn(String sn) {
+        return productDao.findBySn(sn);
+    }
+
+    public Product Update(Product product) {
+        return productDao.save(product);
+    }
+
+    public String delete(String sn) {
+        Product product = productDao.findBySn(sn);
+        try{
+            productDao.delete(product);
+            return "delete";
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return "fail";
+        }
     }
 }
