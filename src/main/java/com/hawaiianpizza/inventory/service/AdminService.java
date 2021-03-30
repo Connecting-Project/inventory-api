@@ -66,7 +66,17 @@ public class AdminService {
 
     }
 
-    public List<User> notallowedUserList() {
-        return loginDao.findByUauth(0);
+    public List<User> userList() {
+        return loginDao.findAll();
+    }
+
+    public List<User> userNameSearch(String s) {
+        return loginDao.findByNameLike(s);
+    }
+
+    public User changeAuth(User user,int level) {
+        user.setUauth(level);
+        return loginDao.save(user);
+
     }
 }
