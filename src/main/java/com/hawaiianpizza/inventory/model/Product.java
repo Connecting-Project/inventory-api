@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +23,7 @@ public class Product {
     private String productName;
     private int price;
     private int quantity;
-    private int sn;
-
+    private String sn;
+    @ManyToOne
+    private User user;
 }

@@ -13,4 +13,8 @@ public interface ProductDao extends JpaRepository<Product, String> {
      Optional<Product> findById(String id);
 
      List<Product> findByProductNameLike(String s);
+
+    List<Product> findByCategory(String category);
+
+    Product findBySn(String sn);
 }
