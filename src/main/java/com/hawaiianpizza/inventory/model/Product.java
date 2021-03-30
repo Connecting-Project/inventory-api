@@ -26,4 +26,5 @@ public class Product {
     private String sn;
     @ManyToOne
     private User user;
+    private String picture;
 }

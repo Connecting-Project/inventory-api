@@ -3,8 +3,10 @@ package com.hawaiianpizza.inventory.service;
 
 import com.hawaiianpizza.inventory.dao.AdminDao;
 import com.hawaiianpizza.inventory.dao.LoginDao;
+import com.hawaiianpizza.inventory.dao.ProductDao;
 import com.hawaiianpizza.inventory.model.Admin;
 import com.hawaiianpizza.inventory.model.AdminLogin;
+import com.hawaiianpizza.inventory.model.Product;
 import com.hawaiianpizza.inventory.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,8 @@ public class AdminService {
     private AdminDao adminDao;
     @Autowired
     private LoginDao loginDao;
-
+    @Autowired
+    private ProductDao productDao;
     public List<Admin> test () {
         return adminDao.findAll();
     }
@@ -84,5 +87,12 @@ public class AdminService {
         if(loginDao.count()>0)
             return true;
         return false;
+    }
+
+    public Product productUserChange(Product product, String uid) {
+        User user = loginDao.findById(uid).get();
+        product.setUser(user);
+        return productDao.save(product);
+
     }
 }
