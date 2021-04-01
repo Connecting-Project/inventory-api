@@ -180,21 +180,4 @@ public class AdminController {
             return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping(value = "/change-auth")
-    public ResponseEntity<?> changeAuth1(@RequestBody User user,@RequestParam int level){
-        System.out.println("change Auth");
-        try {
-            User u = adminService.changeAuth(user,level);
-            if(u != null){
-                return new ResponseEntity<>(u, HttpStatus.OK);
-            }
-            else
-            {
-                return new ResponseEntity<>("no user", HttpStatus.OK);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>("request fail", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
 }
