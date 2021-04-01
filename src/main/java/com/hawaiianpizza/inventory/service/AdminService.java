@@ -1,13 +1,8 @@
 package com.hawaiianpizza.inventory.service;
 
 
-import com.hawaiianpizza.inventory.dao.AdminDao;
-import com.hawaiianpizza.inventory.dao.LoginDao;
-import com.hawaiianpizza.inventory.dao.ProductDao;
-import com.hawaiianpizza.inventory.model.Admin;
-import com.hawaiianpizza.inventory.model.AdminLogin;
-import com.hawaiianpizza.inventory.model.Product;
-import com.hawaiianpizza.inventory.model.User;
+import com.hawaiianpizza.inventory.dao.*;
+import com.hawaiianpizza.inventory.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +15,11 @@ public class AdminService {
     @Autowired
     private LoginDao loginDao;
     @Autowired
+    private ProductsDao productsDao;
+    @Autowired
     private ProductDao productDao;
+    @Autowired
+    private DeviceDao deviceDao;
     public List<Admin> test () {
         return adminDao.findAll();
     }
@@ -80,7 +79,6 @@ public class AdminService {
     public User changeAuth(User user,int level) {
         user.setUauth(level);
         return loginDao.save(user);
-
     }
 
     public boolean adminCheck() {
@@ -89,10 +87,24 @@ public class AdminService {
         return false;
     }
 
-    public Product productUserChange(Product product, String uid) {
+    public Products productUserChange(Products product, String uid) {
         User user = loginDao.findById(uid).get();
         product.setUser(user);
-        return productDao.save(product);
-
+        return productsDao.save(product);
+    }
+    public Products productsUserDelete(Products products) {
+        User user = new User();
+        products.setUser(user);
+        Product pro = products.getProduct();
+        pro.setStock(pro.getStock()+1);
+        productDao.save(pro);
+        return productsDao.save(products);
+    }
+    public Product deviceUserDelete(Device device) {
+        Product pro = device.getProduct();
+        pro.setStock(pro.getStock()+device.getQuantity());
+        productDao.save(pro);
+        deviceDao.delete(device);
+        return pro;
     }
 }

@@ -80,6 +80,22 @@ public class ProductController {
         }
 
     }
+    @PostMapping(value = "/c")
+    public ResponseEntity<?> productsCreate(@RequestBody Product product) {
+        System.out.println("productsCreate Controller");
+        try {
+            System.out.println("Create product");
+            String sn = product.getCategory();
+            int ran = (int) (Math.random()*1000000000);
+            sn = sn+ran;
+            product.setSn(sn);
+            Product pro = productService.Update(product);
+            return new ResponseEntity<>(pro, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("save fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
     @DeleteMapping(value = "/")
     public ResponseEntity<?> productsDelete(@RequestParam String sn) {
         System.out.println("productsDelete Controller");
