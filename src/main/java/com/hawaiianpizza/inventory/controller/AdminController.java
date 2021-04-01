@@ -168,7 +168,7 @@ public class AdminController {
         }
 
     }
-    @GetMapping(value = "/change-auth")
+    @PostMapping(value = "/change-auth")
     public ResponseEntity<?> changeAuth(@RequestBody User user,@RequestParam int level){
         System.out.println("change Auth");
         try {
