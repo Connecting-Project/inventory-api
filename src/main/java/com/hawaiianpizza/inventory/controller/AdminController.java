@@ -1,11 +1,7 @@
 package com.hawaiianpizza.inventory.controller;
 
-import com.hawaiianpizza.inventory.model.Admin;
-import com.hawaiianpizza.inventory.model.AdminLogin;
-import com.hawaiianpizza.inventory.model.Product;
-import com.hawaiianpizza.inventory.model.User;
+import com.hawaiianpizza.inventory.model.*;
 import com.hawaiianpizza.inventory.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -151,11 +147,11 @@ public class AdminController {
         }
 
     }
-    @GetMapping(value = "/product-user-change")
-    public ResponseEntity<?> productUserChange(@RequestBody Product product, @RequestParam String name){
+    @PostMapping(value = "/product-user-change")
+    public ResponseEntity<?> productUserChange(@RequestBody Products product, @RequestParam String name){
         System.out.println("product user change controller");
         try {
-            Product pro = adminService.productUserChange(product,name);
+            Products pro = adminService.productUserChange(product,name);
             if(pro != null){
                 return new ResponseEntity<>(pro, HttpStatus.OK);
             }

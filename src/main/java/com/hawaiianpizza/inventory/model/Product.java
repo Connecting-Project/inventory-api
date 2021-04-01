@@ -23,8 +23,7 @@ public class Product {
     private String productName;
     private int price;
     private int quantity;
+    private int stock;
     private String sn;
-    @ManyToOne
-    private User user;
     private String picture;
 }
