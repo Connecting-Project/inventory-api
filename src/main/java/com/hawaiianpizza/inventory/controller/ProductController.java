@@ -89,6 +89,7 @@ public class ProductController {
             int ran = (int) (Math.random()*1000000000);
             sn = sn+ran;
             product.setSn(sn);
+            System.out.println(product);
             Product pro = productService.Update(product);
             return new ResponseEntity<>(pro, HttpStatus.OK);
         } catch (Exception e) {

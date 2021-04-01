@@ -18,7 +18,7 @@ public class ProductService {
     }
 
     public List<Product> searchName(String name) {
-        return productDao.findByProductNameLike("%"+name+"%");
+        return productDao.findByProductnameLike("%"+name+"%");
     }
 
     public List<Product> searchCategory(String category) {
