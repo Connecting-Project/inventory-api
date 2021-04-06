@@ -63,6 +63,7 @@ public class LoginService {
 
     }
 
+
     // 랜덤코드 및 패스워드 생성
     public String ramdom(int num){
         String codechar = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -84,5 +85,9 @@ public class LoginService {
 
         mailSender.send(message);
         System.out.println(toEmail+"로 메일 전송 성공");
+    }
+
+    public User searchId(String user_id) {
+        return loginDao.findById(user_id).get();
     }
 }

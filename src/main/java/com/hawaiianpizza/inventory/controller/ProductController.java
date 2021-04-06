@@ -1,6 +1,7 @@
 package com.hawaiianpizza.inventory.controller;
 
 import com.hawaiianpizza.inventory.model.Product;
+import com.hawaiianpizza.inventory.model.ProductLog;
 import com.hawaiianpizza.inventory.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -120,21 +121,21 @@ public class ProductController {
             return new ResponseEntity<>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//    @PostMapping(value = "/c")
-//    public ResponseEntity<?> productsRent(@RequestBody Product product) {
-//        System.out.println("productsCreate Controller");
-//        try {
-//            System.out.println("Create product");
-//            String sn = product.getCategory();
-//            int ran = (int) (Math.random()*1000000000);
-//            sn = sn+ran;
-//            product.setSn(sn);
-//            System.out.println(product);
-//            Product pro = productService.Update(product);
-//            return new ResponseEntity<>(pro, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("save fail", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//    }
+
+    //상세 정보
+    @GetMapping(value = "/detail")
+    public ResponseEntity<?> productDetail(@RequestParam int id) {
+        System.out.println("productsDelete Controller");
+        try {
+            Product product = productService.searchId(id);
+            List<ProductLog> logs = productService.LogList(id);
+            HashMap<String,Object> ret = new HashMap<>();
+            ret.put("product",product);
+            ret.put("logs",logs);
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

@@ -46,4 +46,8 @@ public class DeviceService {
             return "fail";
         }
     }
+
+    public Device searchId(int device_id) {
+        return deviceDao.findById(device_id).get();
+    }
 }
