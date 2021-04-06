@@ -20,11 +20,12 @@ public class ProductLog {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int quantity;
     @ManyToOne
     private User user;
     @ManyToOne
     private Product product;
+
+    private int quantity;
     private String status;
     private LocalDateTime timestamp;
 }

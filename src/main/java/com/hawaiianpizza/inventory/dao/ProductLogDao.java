@@ -12,5 +12,5 @@ import java.util.Optional;
 
 public interface ProductLogDao extends JpaRepository<ProductLog, String> {
      Optional<ProductLog> findById(String id);
-     List<ProductLog> findByProduct(int id);
+     List<ProductLog> findByProduct(Product product);
 }

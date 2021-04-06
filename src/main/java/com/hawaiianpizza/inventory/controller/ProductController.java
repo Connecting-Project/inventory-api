@@ -128,13 +128,16 @@ public class ProductController {
         System.out.println("productsDelete Controller");
         try {
             Product product = productService.searchId(id);
-            List<ProductLog> logs = productService.LogList(id);
+            System.out.println(product);
+            List<ProductLog> logs = productService.LogList(product);
+
+            System.out.println(logs);
             HashMap<String,Object> ret = new HashMap<>();
             ret.put("product",product);
             ret.put("logs",logs);
             return new ResponseEntity<>(ret, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("detail fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
