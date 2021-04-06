@@ -120,4 +120,21 @@ public class ProductController {
             return new ResponseEntity<>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping(value = "/c")
+    public ResponseEntity<?> productsRent(@RequestBody Product product) {
+        System.out.println("productsCreate Controller");
+        try {
+            System.out.println("Create product");
+            String sn = product.getCategory();
+            int ran = (int) (Math.random()*1000000000);
+            sn = sn+ran;
+            product.setSn(sn);
+            System.out.println(product);
+            Product pro = productService.Update(product);
+            return new ResponseEntity<>(pro, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("save fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }
