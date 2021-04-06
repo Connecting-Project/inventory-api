@@ -59,7 +59,7 @@ public class ProductService {
         return productDao.findById(id).get();
     }
 
-    public List<ProductLog> LogList(int id) {
-        return productLogDao.findByProduct(id);
+    public List<ProductLog> LogList(Product product) {
+        return productLogDao.findByProduct(product);
     }
 }
