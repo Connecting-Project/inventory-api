@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -73,10 +74,12 @@ public class ProductController {
         System.out.println("productsSN Controller");
         try {
             Product pro = productService.SearchBySn(sn);
-            return new ResponseEntity<>(pro, HttpStatus.OK);
+            List<Product> list = new ArrayList<>();
+            list.add(pro);
+            return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        } 
+        }
     }
     @PostMapping(value = "/")
     public ResponseEntity<?> productsUpdate(@RequestBody Product product) {
