@@ -1,6 +1,7 @@
 package com.hawaiianpizza.inventory.dao;
 
 import com.hawaiianpizza.inventory.model.Product;
+import com.hawaiianpizza.inventory.model.ProductLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,14 +10,7 @@ import java.util.Optional;
 
 @Repository
 
-public interface ProductDao extends JpaRepository<Product, String> {
-
-
-     List<Product> findByProductnameLike(String s);
-
-    List<Product> findByCategory(String category);
-
-    Product findBySn(String sn);
-
-    Optional<Product> findById(int user_id);
+public interface ProductLogDao extends JpaRepository<ProductLog, String> {
+     Optional<ProductLog> findById(String id);
+     List<ProductLog> findByProduct(int id);
 }
