@@ -41,6 +41,7 @@ public class ProductService {
         productLog.setProduct(product);
         productLog.setQuantity(num);
         productLog.setUser(user);
+        productLog.setStatus(status);
         return productLogDao.save(productLog);
     }
     public String delete(String sn) {
@@ -56,6 +57,7 @@ public class ProductService {
     }
 
     public Product searchId(int id) {
+        System.out.println(id);
         return productDao.findById(id).get();
     }
 

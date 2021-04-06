@@ -19,10 +19,12 @@ public class DeviceController {
 
 
     private final DeviceService deviceService;
-    private ProductService productService;
-    private LoginService loginService;
-    public DeviceController(DeviceService deviceService) {
+    private final ProductService productService;
+    private final LoginService loginService;
+    public DeviceController(DeviceService deviceService,ProductService productService,LoginService loginService) {
         this.deviceService = deviceService;
+        this.productService = productService;
+        this.loginService = loginService;
     }
 
     // 전체조회
@@ -38,10 +40,13 @@ public class DeviceController {
     }
     @PostMapping(value = "/rent")
     public ResponseEntity<?> DeviceRent(@RequestParam int pro_id, @RequestParam String user_id, @RequestParam int num) {
-        System.out.println("productsCreate Controller");
+        System.out.println("Device Rent Controller");
         try {
+            System.out.println(pro_id);
             Product product = productService.searchId(pro_id);
+            System.out.println(product);
             User user = loginService.searchId(user_id);
+            System.out.println(user);
             if(product.getStock()>=num){
                 product.setStock(product.getStock()-num);
                 Product pro = productService.Update(product);
@@ -57,13 +62,13 @@ public class DeviceController {
                 return new ResponseEntity<>("재고부족", HttpStatus.OK);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>("save fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Rent fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping(value = "/return")
     public ResponseEntity<?> DeviceReturn(@RequestParam int device_id) {
-        System.out.println("productsCreate Controller");
+        System.out.println("DeviceReturn Controller");
         try {
                 Device device = deviceService.searchId(device_id);
                 Product pro = device.getProduct();
@@ -73,7 +78,7 @@ public class DeviceController {
                 productService.Logging(device.getProduct(),device.getUser(),device.getQuantity(),"반납");
                 return new ResponseEntity<>(pro, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("save fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("return fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
