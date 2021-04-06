@@ -16,6 +16,8 @@ public class DeviceService {
     public List<Device> searchAll() {
         return deviceDao.findAll();
     }
+
+
 //
 //    public List<Device> searchName(String name) {
 //        return deviceDao.findByDeviceNameLike("%"+name+"%");
@@ -29,19 +31,19 @@ public class DeviceService {
 //        return deviceDao.findBySn(sn);
 //    }
 //
-//    public Device Update(Device device) {
-//        return deviceDao.save(device);
-//    }
-//
-//    public String delete(String sn) {
-//        Device device = deviceDao.findBySn(sn);
-//        try{
-//            deviceDao.delete(device);
-//            return "delete";
-//        }
-//        catch (Exception e){
-//            System.out.println(e);
-//            return "fail";
-//        }
-//    }
+    public Device Update(Device device) {
+        return deviceDao.save(device);
+    }
+
+    public String delete(int id) {
+        Device device = deviceDao.findById(id).get();
+        try{
+            deviceDao.delete(device);
+            return "delete";
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return "fail";
+        }
+    }
 }

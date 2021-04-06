@@ -25,4 +25,5 @@ public class Product {
     private int stock;
     private String sn;
     private String picture;
+    private int type;
 }

@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 
 public interface DeviceDao extends JpaRepository<Device, String> {
-     Optional<Device> findById(String id);
 
+     Optional<Device> findById(int id);
 }
