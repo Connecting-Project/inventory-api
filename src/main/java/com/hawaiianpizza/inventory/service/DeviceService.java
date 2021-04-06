@@ -16,21 +16,7 @@ public class DeviceService {
     public List<Device> searchAll() {
         return deviceDao.findAll();
     }
-
-
-//
-//    public List<Device> searchName(String name) {
-//        return deviceDao.findByDeviceNameLike("%"+name+"%");
-//    }
-//
-//    public List<Device> searchCategory(String category) {
-//        return deviceDao.findByCategory(category);
-//    }
-//
-//    public Device SearchBySn(String sn) {
-//        return deviceDao.findBySn(sn);
-//    }
-//
+    
     public Device Update(Device device) {
         return deviceDao.save(device);
     }
