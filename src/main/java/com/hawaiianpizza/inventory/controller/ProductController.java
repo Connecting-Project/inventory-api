@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -25,31 +26,41 @@ public class ProductController {
         System.out.println("products list");
         try {
             List<Product> list = productService.searchAll();
-            return new ResponseEntity<>( list, HttpStatus.OK);
+            HashMap<String,Object> ret = new HashMap<>();
+            ret.put("list_num",list.size());
+            ret.put("list",list);
+            return new ResponseEntity<>( ret, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("load fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
+
     // 제품명 조회
     @GetMapping(value = "/name")
     public ResponseEntity<?> productsName(@RequestParam String name) {
         System.out.println("productsName Controller");
         try {
             List<Product> list = productService.searchName(name);
-            return new ResponseEntity<>(list, HttpStatus.OK);
+            HashMap<String,Object> ret = new HashMap<>();
+            ret.put("list_num",list.size());
+            ret.put("list",list);
+            return new ResponseEntity<>( ret, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
+
     // 카테고리 조회
     @GetMapping(value = "/category")
     public ResponseEntity<?> productsCategory(@RequestParam String category) {
         System.out.println("productsCategory Controller");
         try {
             List<Product> list = productService.searchCategory(category);
-            return new ResponseEntity<>(list, HttpStatus.OK);
+            HashMap<String,Object> ret = new HashMap<>();
+            ret.put("list_num",list.size());
+            ret.put("list",list);
+            return new ResponseEntity<>( ret, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("category fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -65,8 +76,7 @@ public class ProductController {
             return new ResponseEntity<>(pro, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        } 
     }
     @PostMapping(value = "/")
     public ResponseEntity<?> productsUpdate(@RequestBody Product product) {
@@ -106,9 +116,5 @@ public class ProductController {
         } catch (Exception e) {
             return new ResponseEntity<>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
-
-
-
 }
