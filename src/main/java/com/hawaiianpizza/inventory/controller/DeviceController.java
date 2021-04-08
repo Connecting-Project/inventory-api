@@ -81,5 +81,15 @@ public class DeviceController {
             return new ResponseEntity<>("return fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping(value = "/user-device")
+    public ResponseEntity<?> user(@RequestParam String user_id) {
+        System.out.println("user device Controller");
+        try {
+            List<Device> list = deviceService.searchUser(user_id);
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("user device list fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
