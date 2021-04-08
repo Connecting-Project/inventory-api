@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -86,7 +87,10 @@ public class DeviceController {
         System.out.println("user device Controller");
         try {
             List<Device> list = deviceService.searchUser(user_id);
-            return new ResponseEntity<>(list, HttpStatus.OK);
+            HashMap<String,Object> ret = new HashMap<>();
+            ret.put("list",list);
+            ret.put("size",list.size());
+            return new ResponseEntity<>(ret, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("user device list fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
