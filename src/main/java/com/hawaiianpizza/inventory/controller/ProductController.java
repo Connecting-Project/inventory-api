@@ -99,8 +99,19 @@ public class ProductController {
         System.out.println("productsCreate Controller");
         try {
             System.out.println("Create product");
-            String sn = product.getCategory();
-            int ran = (int) (Math.random()*1000000000);
+            HashMap<String, String> category = new HashMap<>();
+
+            category.put("컴퓨터","CPT");
+            category.put("서버","SRV");
+            category.put("네트워크","NET");
+            category.put("주변기기","DEV");
+            category.put("센서","SEN");
+            category.put("전기부품","ELE");
+            category.put("엑추에이터","ACT");
+            category.put("오픈소스 하드웨어","OPS");
+            category.put("기타","ETC");
+            String sn = category.get(product.getCategory());
+            int ran = (int) (Math.random()*1000000);
             sn = sn+ran;
             product.setSn(sn);
             System.out.println(product);
