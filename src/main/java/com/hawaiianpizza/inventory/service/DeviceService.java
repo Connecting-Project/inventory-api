@@ -3,7 +3,9 @@ package com.hawaiianpizza.inventory.service;
 
 import com.hawaiianpizza.inventory.dao.DeviceDao;
 import com.hawaiianpizza.inventory.dao.LoginDao;
+import com.hawaiianpizza.inventory.dao.ProductDao;
 import com.hawaiianpizza.inventory.model.Device;
+import com.hawaiianpizza.inventory.model.Product;
 import com.hawaiianpizza.inventory.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class DeviceService {
     private DeviceDao deviceDao;
     @Autowired
     private LoginDao loginDao;
+    @Autowired
+    private ProductDao productDao;
 
     public List<Device> searchAll() {
         return deviceDao.findAll();
@@ -44,5 +48,13 @@ public class DeviceService {
     public List<Device> searchUser(String user_id) {
         User user = loginDao.findById(user_id).get();
         return deviceDao.findByUser(user);
+    }
+
+    public Product reset(Device device) {
+        Product product = device.getProduct();
+        product.setStock(product.getStock()+device.getQuantity());
+        productDao.save(product);
+        delete(device.getId());
+        return product;
     }
 }
