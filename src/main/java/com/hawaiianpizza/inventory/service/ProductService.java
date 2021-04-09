@@ -3,8 +3,10 @@ package com.hawaiianpizza.inventory.service;
 
 import com.hawaiianpizza.inventory.dao.ProductDao;
 import com.hawaiianpizza.inventory.dao.ProductLogDao;
+import com.hawaiianpizza.inventory.dao.ProductsDao;
 import com.hawaiianpizza.inventory.model.Product;
 import com.hawaiianpizza.inventory.model.ProductLog;
+import com.hawaiianpizza.inventory.model.Products;
 import com.hawaiianpizza.inventory.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class ProductService {
     private ProductDao productDao;
     @Autowired
     private ProductLogDao productLogDao;
+    @Autowired
+    private ProductsDao productsDao;
     public List<Product> searchAll() {
         return productDao.findAll();
     }
@@ -34,7 +38,9 @@ public class ProductService {
     }
 
     public Product Update(Product product) {
-        return productDao.save(product);
+        Product pro = productDao.saveAndFlush(product);
+        productDao.flush();
+        return pro;
     }
     public ProductLog Logging(Product product, User user, int num, String status){
         ProductLog productLog = new ProductLog();
@@ -64,4 +70,9 @@ public class ProductService {
     public List<ProductLog> LogList(Product product) {
         return productLogDao.findByProduct(product);
     }
+
+    public void productsSave(Products pro) {
+        productsDao.saveAndFlush(pro);
+    }
+
 }

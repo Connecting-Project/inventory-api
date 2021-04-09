@@ -2,7 +2,11 @@ package com.hawaiianpizza.inventory.controller;
 
 import com.hawaiianpizza.inventory.model.Product;
 import com.hawaiianpizza.inventory.model.ProductLog;
+import com.hawaiianpizza.inventory.model.Products;
+import com.hawaiianpizza.inventory.model.User;
+import com.hawaiianpizza.inventory.service.LoginService;
 import com.hawaiianpizza.inventory.service.ProductService;
+import org.apache.tomcat.jni.Time;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -18,8 +23,9 @@ public class ProductController {
 
 
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
+    private final LoginService loginService;
+    public ProductController(ProductService productService,LoginService loginService) {
+        this.loginService = loginService;
         this.productService = productService;
     }
     // 전체조회
@@ -108,7 +114,7 @@ public class ProductController {
             category.put("센서","SEN");
             category.put("전기부품","ELE");
             category.put("엑추에이터","ACT");
-            category.put("오픈소스 하드웨어","OPS");
+            category.put("오픈소스H/W","OPS");
             category.put("기타","ETC");
             String sn = category.get(product.getCategory());
             int ran = (int) (Math.random()*1000000);
@@ -116,12 +122,31 @@ public class ProductController {
             product.setSn(sn);
             System.out.println(product);
             Product pro = productService.Update(product);
+            if(product.getType()==1){
+                productsCraete(pro);
+
+            }
             return new ResponseEntity<>(pro, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("save fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
+
+    private void productsCraete(Product pro) {
+        for(int i = 1;i<=pro.getQuantity();i++){
+            Products products = new Products();
+            Product temp = productService.searchId(pro.getId());
+            System.out.println(temp);
+            products.setProduct(temp);
+            products.setSn(pro.getSn()+i);
+            User u = loginService.searchId("1");
+            products.setUser(u);
+            System.out.println(products);
+            productService.productsSave(products);
+        }
+    }
+
     @DeleteMapping(value = "/")
     public ResponseEntity<?> productsDelete(@RequestParam String sn) {
         System.out.println("productsDelete Controller");

@@ -90,4 +90,15 @@ public class LoginService {
     public User searchId(String user_id) {
         return loginDao.findById(user_id).get();
     }
+
+    public void delete(String id) {
+        User user = loginDao.findById(id).get();
+        loginDao.delete(user);
+    }
+
+    public User update(String id, String tel) {
+        User user = loginDao.findById(id).get();
+        user.setTel(tel);
+        return loginDao.save(user);
+    }
 }

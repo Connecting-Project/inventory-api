@@ -32,13 +32,24 @@ public class LoginController {
         }
     }
     @PutMapping(value = "/accounts")
-    public ResponseEntity<?> accountsUpdate(@RequestParam String email) {
+    public ResponseEntity<?> accountsUpdate(@RequestParam String id,@RequestParam String tel) {
         System.out.println("accountsUpdate Controller");
         try {
-            System.out.println("info");
-            return new ResponseEntity<>("login Success", HttpStatus.OK);
+            User user = loginService.update(id,tel);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("login fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @DeleteMapping(value = "")
+    public ResponseEntity<?> accountsDelete(@RequestParam String id) {
+        System.out.println("accounts Delete Controller");
+        try {
+            loginService.delete(id);
+            return new ResponseEntity<>("delete Success", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("delete fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
