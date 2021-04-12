@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -120,8 +121,9 @@ public class ProductController {
             int ran = (int) (Math.random()*1000000);
             sn = sn+ran;
             product.setSn(sn);
-            System.out.println(product);
-            Product pro = productService.Update(product);
+            productService.Update(product);
+            Product pro = productService.SearchBySn(product.getSn());
+
             if(product.getType()==1){
                 productsCraete(pro);
 
@@ -132,19 +134,23 @@ public class ProductController {
         }
 
     }
-
     private void productsCraete(Product pro) {
-        for(int i = 1;i<=pro.getQuantity();i++){
-            Products products = new Products();
-            Product temp = productService.searchId(pro.getId());
-            System.out.println(temp);
-            products.setProduct(temp);
-            products.setSn(pro.getSn()+i);
-            User u = loginService.searchId("1");
-            products.setUser(u);
-            System.out.println(products);
-            productService.productsSave(products);
+        try {
+            for(int i = 1;i<=pro.getQuantity();i++){
+                Products products = new Products();
+                Product temp = productService.searchId(pro.getId());
+                System.out.println(temp);
+                products.setProduct(temp);
+                products.setSn(pro.getSn()+i);
+                User u = loginService.searchId("1");
+                products.setUser(u);
+                System.out.println(products);
+                productService.productsSave(products);
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
+
     }
 
     @DeleteMapping(value = "/")

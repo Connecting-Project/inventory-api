@@ -17,8 +17,6 @@ import javax.persistence.ManyToOne;
 @Entity(name = "products")
 public class Products {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String sn;
     @ManyToOne
     private User user;

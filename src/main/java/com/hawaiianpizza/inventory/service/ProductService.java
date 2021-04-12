@@ -11,6 +11,7 @@ import com.hawaiianpizza.inventory.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -37,6 +38,7 @@ public class ProductService {
         return productDao.findBySn(sn);
     }
 
+
     public Product Update(Product product) {
         Product pro = productDao.saveAndFlush(product);
         productDao.flush();
@@ -61,10 +63,17 @@ public class ProductService {
             return "fail";
         }
     }
-
+    @Transactional
     public Product searchId(int id) {
-        System.out.println(id);
-        return productDao.findById(id).get();
+        try {
+            System.out.println(id);
+            return productDao.findById(id).get();
+
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
     }
 
     public List<ProductLog> LogList(Product product) {
