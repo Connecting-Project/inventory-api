@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'node:14-alpine'
+      image 'openjdk:11'
     }
 
   }
@@ -9,6 +9,16 @@ pipeline {
     stage('source') {
       steps {
         git(url: 'https://github.com/Connecting-Project/inventory-api.git', branch: 'main', changelog: true)
+      }
+    }
+
+    stage('Build') {
+      steps {
+        withGradle() {
+          sh '''clean 
+build'''
+        }
+
       }
     }
 
