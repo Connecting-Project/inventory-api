@@ -14,8 +14,11 @@ pipeline {
 
     stage('build') {
       steps {
-        sh '''gradle clean 
-gradle build'''
+        withGradle() {
+          sh '''clean
+build'''
+        }
+
       }
     }
 
