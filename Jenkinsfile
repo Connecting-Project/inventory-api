@@ -14,11 +14,7 @@ pipeline {
 
     stage('build') {
       steps {
-        withGradle() {
-          sh '''clean
-build'''
-        }
-
+        sh 'gradle clean build -x test -b build-server.gradle'
       }
     }
 
