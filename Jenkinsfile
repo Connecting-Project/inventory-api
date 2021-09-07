@@ -12,11 +12,19 @@ pipeline {
       }
     }
 
-    stage('Build') {
-      steps {
-        withGradle() {
-          sh '''clean 
+    stage('gradle') {
+      parallel {
+        stage('build') {
+          steps {
+            tool 'gradle'
+          }
+        }
+
+        stage('') {
+          steps {
+            sh '''clean 
 build'''
+          }
         }
 
       }
