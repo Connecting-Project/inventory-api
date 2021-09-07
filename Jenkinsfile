@@ -12,15 +12,12 @@ pipeline {
       }
     }
 
-    stage('build') {
+  stage('Gradle Build') {
       steps {
-        withGradle() {
-          sh '''clean
-build'''
-        }
-
+        sh 'gradle clean build -x test -b build-server.gradle'
       }
     }
-
+   
+    }
   }
 }
