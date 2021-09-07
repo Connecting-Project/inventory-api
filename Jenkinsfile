@@ -12,21 +12,9 @@ pipeline {
       }
     }
 
-    stage('gradle') {
-      parallel {
-        stage('build') {
-          steps {
-            tool 'gradle'
-          }
-        }
-
-        stage('') {
-          steps {
-            sh '''clean 
-build'''
-          }
-        }
-
+    stage('build') {
+      steps {
+        tool 'gradle'
       }
     }
 
