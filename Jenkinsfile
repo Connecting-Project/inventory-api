@@ -1,7 +1,7 @@
 pipeline {
   agent {
-    docker {
-      image 'gradle'
+    node {
+      label 'master'
     }
 
   }
@@ -9,13 +9,6 @@ pipeline {
     stage('source') {
       steps {
         git(url: 'https://github.com/Connecting-Project/inventory-api.git', branch: 'main', changelog: true)
-      }
-    }
-
-    stage('build') {
-      steps {
-        sh '''gradle clean 
-gradle build'''
       }
     }
 
